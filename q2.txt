@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct student {
+  char roll_no[8];
+  char name[50];
+  char email[50];
+};
+
+void save_student_details(struct student s[50], int index) {
+  FILE *fp;
+  fp = fopen("student_details.txt", "a");
+  if (fp == NULL) {
+    printf("Error opening file!\n");
+    exit(1);
+  }
+  
+  fprintf(fp, "Roll No: %s\n", s[index].roll_no);
+  fprintf(fp, "Name: %s\n", s[index].name);
+  fprintf(fp, "Email: %s\n", s[index].email);
+  
+  fclose(fp);
+}
+
+void show_student_details(struct student s[50], int snum)
+{
+  FILE *fp;
+  fp = fopen("student_details.txt", "a");
+  if (fp == NULL) {
+    printf("Error opening file!\n");
+    exit(1);
+  }    
+    
+  printf(fp, "Roll No: %s\n", s[snum].roll_no);
+  printf(fp, "Name: %s\n", s[snum].name);
+  printf(fp, "Email: %s\n", s[snum].email);
+  
+  fclose(fp);
+}
+
+void remove_student_details(struct student s[50], int snum)
+{
+    FILE *fp;
+  fp = fopen("student_details.txt", "a");
+  if (fp == NULL) {
+    printf("Error opening file!\n");
+    exit(1);
+  }
+  
+  fprintf(fp, "Roll No: %s\n", "null");
+  fprintf(fp, "Name: %s\n", "null");
+  fprintf(fp, "Email: %s\n", "null");
+  
+  fclose(fp);
+}
+
+
+int main() {
+  struct student s[50];
+  int ch = 0;   //choice
+  int i = 0;    //loop
+    
+    for(i = 0;ch != 0; i++) {
+        
+    printf("Enter 1 to input details of a student \n Enter 2 to read input of a student \n Enter 3 to 
+remove a student\n Enter 0 to exit");
+    
+    scanf("%d", ch);
+    
+        if(ch == 1){
+          printf("Enter details of student:\n");
+          printf("Roll No: ");
+          scanf("%s", &s[i].roll_no);
+          printf("Name: ");
+          scanf("%s", s[i].name);
+          printf("Email: ");
+          scanf("%s", s[i].email);
+          save_student_details(s[i], &i);
+        }
+    
+        if(ch == 2)
+        {
+            int snum = 0;
+            printf("Enter student number:  ");
+            scanf("%d", &snum);
+            show_student_details(s[50], &s[snum]);
+        }
+        
+        if(ch == 3)
+        {
+            int snum = 0;
+            printf("Enter student number:  ");
+            scanf("%d", &snum);
+            remove_student_details(s[50], &s[snum]);
+        }
+        
+        
+    }
+  printf("Details saved successfully in student_details.txt\n");
+  return 0;
